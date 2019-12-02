@@ -50,7 +50,7 @@ const LayoutUI = props => {
           <Menu theme="dark" defaultSelectedKeys={["sub1"]} mode="inline">
             <Menu.Item key="111">
               <Icon type="home" />
-              <span> <Link to="/">Ana deneme push Sayfa</Link></span>
+              <span> <Link to="/">Ana Sayfa</Link></span>
             </Menu.Item>
             <SubMenu
               key="sub1"
