@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import { authLogin } from "../store/actions/auth";
-import "./Login.css"
+import "./Login.css";
 import { Form, Icon, Input, Button, Checkbox, Row } from "antd";
 
 class NormalLoginForm extends React.Component {
@@ -11,8 +11,8 @@ class NormalLoginForm extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log("Received values of form: ", values);
-        const { username, password } = values;
-        this.props.login(username, password);
+        const { email, password } = values;
+        this.props.login(email, password);
       }
     });
   };
@@ -25,50 +25,61 @@ class NormalLoginForm extends React.Component {
     }
 
     return (
-      <Row type="flex" justify="center" align="middle" style={{minHeight: '100vh'}}>
-      <Form onSubmit={this.handleSubmit} className="login-form">
-        {error && <p>{this.props.error.message}</p>}
-        <Form.Item>
-          {getFieldDecorator("username", {
-            rules: [{ required: true, message: "Please input your username!" }]
-          })(
-            <Input
-              prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
-              placeholder="Username"
-            />
-          )}
-        </Form.Item>
-        <Form.Item>
-          {getFieldDecorator("password", {
-            rules: [{ required: true, message: "Please input your Password!" }]
-          })(
-            <Input
-              prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
-              type="password"
-              placeholder="Password"
-            />
-          )}
-        </Form.Item>
-        <Form.Item>
-          {getFieldDecorator("remember", {
-            valuePropName: "checked",
-            initialValue: true
-          })(<Checkbox>Remember me</Checkbox>)}
-          <a className="login-form-forgot" href="">
-            Forgot password
-          </a>
-          <Button
-            type="primary"
-            htmlType="submit"
-            className="login-form-button"
-            loading={loading}
-            disabled={loading}
-          >
-            Log in
-          </Button>
-          Or <Link to="/register">Üye Olun</Link>
-        </Form.Item>
-      </Form>
+      <Row
+        type="flex"
+        justify="center"
+        align="middle"
+        style={{ minHeight: "100vh" }}
+      >
+        <Form onSubmit={this.handleSubmit} className="login-form">
+          {error && <p>{this.props.error.message}</p>}
+          <Form.Item>
+            {getFieldDecorator("email", {
+              rules: [{ required: true, message: "Please input your email!" }]
+            })(
+              <Input
+                prefix={
+                  <Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />
+                }
+                placeholder="E-mail"
+              />
+            )}
+          </Form.Item>
+          <Form.Item>
+            {getFieldDecorator("password", {
+              rules: [
+                { required: true, message: "Please input your Password!" }
+              ]
+            })(
+              <Input
+                prefix={
+                  <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />
+                }
+                type="password"
+                placeholder="Password"
+              />
+            )}
+          </Form.Item>
+          <Form.Item>
+            {getFieldDecorator("remember", {
+              valuePropName: "checked",
+              initialValue: true
+            })(<Checkbox>Remember me</Checkbox>)}
+            <a className="login-form-forgot" href="">
+              Forgot password
+            </a>
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="login-form-button"
+              loading={loading}
+              disabled={loading}
+            >
+              Log in
+            </Button>
+            Or <Link to="/register">Üye Olun</Link>
+          </Form.Item>
+        </Form>
       </Row>
     );
   }
@@ -77,7 +88,6 @@ class NormalLoginForm extends React.Component {
 const WrappedNormalLoginForm = Form.create({ name: "normal_login" })(
   NormalLoginForm
 );
-
 
 const mapStateToProps = state => {
   return {
@@ -89,8 +99,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    login: (username, password) => dispatch(authLogin(username, password))
+    login: (email, password) => dispatch(authLogin(email, password))
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(WrappedNormalLoginForm);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(WrappedNormalLoginForm);

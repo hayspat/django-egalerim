@@ -5,13 +5,15 @@ import registerServiceWorker from "./registerServiceWorker";
 import { createStore, compose, applyMiddleware, combineReducers } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
-import 'antd/dist/antd.css';
+import "antd/dist/antd.css";
 import authReducer from "./store/reducers/auth";
+import carilerReducer from "./store/reducers/cariler";
 
 const composeEnhances = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
-  auth: authReducer
+  auth: authReducer,
+  cariler: carilerReducer
 });
 
 const store = createStore(rootReducer, composeEnhances(applyMiddleware(thunk)));

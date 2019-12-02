@@ -32,7 +32,11 @@ const LayoutUI = props => {
             <Menu.Item key="2" onClick={() => props.logout()}>
               Logout
             </Menu.Item>
-          ) : null}
+          ) : (
+            <Menu.Item key="3">
+              <Link to="/login">Login</Link>
+            </Menu.Item>
+          )}
         </Menu>
       </Header>
       <Layout>
@@ -55,8 +59,10 @@ const LayoutUI = props => {
               <Menu.Item key="1">
                 <Link to="/cariekle">Cari Ekle</Link>
               </Menu.Item>
-              <Menu.Item key="2">
-                {" "}
+              <Menu.Item key="14">
+                <Link to="/cariliste">Cari Listele</Link>
+              </Menu.Item>
+              <Menu.Item key="13">
                 <Link to="/stokekle">Stok Ekle</Link>
               </Menu.Item>
               <Menu.Item key="3" onClick={() => props.logout()}>

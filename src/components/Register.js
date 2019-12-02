@@ -2,16 +2,11 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import { authSignup } from "../store/actions/auth";
-import {
-  Form,
-  Input,
-  Row,
-  Button,
-} from "antd";
+import { Form, Input, Row, Button } from "antd";
 
 class RegistrationForm extends React.Component {
   state = {
-    confirmDirty: false,
+    confirmDirty: false
   };
 
   handleSubmit = e => {
@@ -19,8 +14,8 @@ class RegistrationForm extends React.Component {
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         console.log("Received values of form: ", values);
-        const { username, email, password, confirm } = values;
-        this.props.signup(username, email, password, confirm);
+        const { email, password, confirm } = values;
+        this.props.signup(email, password, confirm);
       }
     });
   };
@@ -78,73 +73,67 @@ class RegistrationForm extends React.Component {
     };
 
     return (
-      <Row type="flex" justify="center" align="middle" style={{minHeight: '100vh'}}>
-      <Form {...formItemLayout} onSubmit={this.handleSubmit}>
-        {error && <p>{this.props.error.message}</p>}
+      <Row
+        type="flex"
+        justify="center"
+        align="middle"
+        style={{ minHeight: "100vh" }}
+      >
+        <Form {...formItemLayout} onSubmit={this.handleSubmit}>
+          {error && <p>{this.props.error.message}</p>}
 
-        <Form.Item label="E-posta">
-          {getFieldDecorator("email", {
-            rules: [
-              {
-                type: "email",
-                message: "The input is not valid E-mail!"
-              },
-              {
-                required: true,
-                message: "Please input your E-mail!"
-              }
-            ]
-          })(<Input />)}
-        </Form.Item>
+          <Form.Item label="E-posta">
+            {getFieldDecorator("email", {
+              rules: [
+                {
+                  type: "email",
+                  message: "The input is not valid E-mail!"
+                },
+                {
+                  required: true,
+                  message: "Please input your E-mail!"
+                }
+              ]
+            })(<Input />)}
+          </Form.Item>
 
-        <Form.Item label="Kullanıcı adı">
-          {getFieldDecorator("username", {
-            rules: [
-              {
-                required: true,
-                message: "Lütfen kullanıcı adı girin"
-              }
-            ]
-          })(<Input />)}
-        </Form.Item>
-
-        <Form.Item label="Şifre" hasFeedback>
-          {getFieldDecorator("password", {
-            rules: [
-              {
-                required: true,
-                message: "Please input your password!"
-              },
-              {
-                validator: this.validateToNextPassword
-              }
-            ]
-          })(<Input.Password />)}
-        </Form.Item>
-        <Form.Item label="Şifreyi Doğrula" hasFeedback>
-          {getFieldDecorator("confirm", {
-            rules: [
-              {
-                required: true,
-                message: "Please confirm your password!"
-              },
-              {
-                validator: this.compareToFirstPassword
-              }
-            ]
-          })(<Input.Password onBlur={this.handleConfirmBlur} />)}
-        </Form.Item>
-        <Form.Item {...tailFormItemLayout}>
-          <Button
-            type="primary"
-            htmlType="submit"
-            loading={loading}
-            disabled={loading}
-          >
-            Register
-          </Button>
-        </Form.Item>
-      </Form>
+          <Form.Item label="Şifre" hasFeedback>
+            {getFieldDecorator("password", {
+              rules: [
+                {
+                  required: true,
+                  message: "Please input your password!"
+                },
+                {
+                  validator: this.validateToNextPassword
+                }
+              ]
+            })(<Input.Password />)}
+          </Form.Item>
+          <Form.Item label="Şifreyi Doğrula" hasFeedback>
+            {getFieldDecorator("confirm", {
+              rules: [
+                {
+                  required: true,
+                  message: "Please confirm your password!"
+                },
+                {
+                  validator: this.compareToFirstPassword
+                }
+              ]
+            })(<Input.Password onBlur={this.handleConfirmBlur} />)}
+          </Form.Item>
+          <Form.Item {...tailFormItemLayout}>
+            <Button
+              type="primary"
+              htmlType="submit"
+              loading={loading}
+              disabled={loading}
+            >
+              Register
+            </Button>
+          </Form.Item>
+        </Form>
       </Row>
     );
   }
@@ -164,9 +153,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    signup: (username, email, password1, password2) =>
-      dispatch(authSignup(username, email, password1, password2))
+    signup: (email, password1, password2) =>
+      dispatch(authSignup(email, password1, password2))
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(WrappedRegistrationForm);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(WrappedRegistrationForm);

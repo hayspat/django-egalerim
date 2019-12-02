@@ -22,13 +22,9 @@ function App(props) {
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
-        {props.isAuthenticated ? (
-          <CustomLayout {...props}>
-            <BaseRouter />
-          </CustomLayout>
-        ) : (
-          <Redirect to="/login" />
-        )}
+        <CustomLayout {...props}>
+          <BaseRouter />
+        </CustomLayout>
       </Switch>
     </Router>
   );
