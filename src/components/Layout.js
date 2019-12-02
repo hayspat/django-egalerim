@@ -22,7 +22,7 @@ const LayoutUI = props => {
       <Header className="header">
         <div className="logo" />
         <Menu
-          theme="light"
+          theme="dark"
           mode="horizontal"
           defaultSelectedKeys={["2"]}
           style={{ lineHeight: "64px" }}
@@ -47,10 +47,10 @@ const LayoutUI = props => {
           collapsedWidth={80}
         >
           <div className="logo" />
-          <Menu theme="light" defaultSelectedKeys={["sub1"]} mode="inline">
+          <Menu theme="dark" defaultSelectedKeys={["sub1"]} mode="inline">
             <Menu.Item key="111">
               <Icon type="home" />
-              <span> <Link to="/">Ana Sayfa</Link></span>
+              <span> <Link to="/">Ana deneme push Sayfa</Link></span>
             </Menu.Item>
             <SubMenu
               key="sub1"
