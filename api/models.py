@@ -10,7 +10,8 @@ class Cariler(models.Model):
     tel_no = models.CharField(max_length=13, blank=True, null=True)
     adres = models.CharField(max_length=255, blank=True, null=True)
     posta_kodu = models.CharField(max_length=5, blank=True, null=True)
-    added_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    added_by = models.ForeignKey(
+        'users.User', related_name='added_by', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.isim

@@ -5,5 +5,9 @@ from .serializers import CarilerSerializer
 
 
 class CarilerViewSet(viewsets.ModelViewSet):
-    queryset = Cariler.objects.all()
     serializer_class = CarilerSerializer
+
+    def get_queryset(self, *args, **kwargs):
+        print(self.request.user)
+        queryset_list = Cariler.objects.filter(added_by=self.request.user.id)
+        return queryset_list

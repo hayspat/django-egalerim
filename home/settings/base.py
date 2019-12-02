@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'api',
     'users',
+
 ]
 
 MIDDLEWARE = [
@@ -91,5 +92,5 @@ AUTH_USER_MODEL = 'users.User'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 REST_AUTH_SERIALIZERS = {
-    'TOKEN_SERIALIZER': 'users.serializers.TokenSerializer'
+    'TOKEN_SERIALIZER': 'users.serializers.TokenSerializer',
 }
