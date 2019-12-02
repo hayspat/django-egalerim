@@ -22,7 +22,7 @@ const LayoutUI = props => {
       <Header className="header">
         <div className="logo" />
         <Menu
-          theme="dark"
+          theme="light"
           mode="horizontal"
           defaultSelectedKeys={["2"]}
           style={{ lineHeight: "64px" }}
@@ -33,30 +33,37 @@ const LayoutUI = props => {
               Logout
             </Menu.Item>
           ) : (
-            <Menu.Item key="3">
-              <Link to="/login">Login</Link>
-            </Menu.Item>
-          )}
+              <Menu.Item key="3">
+                <Link to="/login">Login</Link>
+              </Menu.Item>
+            )}
         </Menu>
       </Header>
-      <Layout>
+      <Layout style={{ minHeight: '93vh' }}>
         <Sider
           collapsible
           collapsed={state}
           onCollapse={() => setState(!state)}
-          collapsedWidth={0}
+          collapsedWidth={80}
         >
-          <Menu theme="dark" defaultSelectedKeys={["sub1"]} mode="inline">
+          <div className="logo" />
+          <Menu theme="light" defaultSelectedKeys={["sub1"]} mode="inline">
+            <Menu.Item key="111">
+              <Icon type="home" />
+              <span> <Link to="/">Ana Sayfa</Link></span>
+            </Menu.Item>
             <SubMenu
               key="sub1"
               title={
                 <span>
                   <Icon type="user" />
-                  Ekleme işlemleri
+                  <span>
+                    Ekleme işlemleri
+                    </span>
                 </span>
               }
             >
-              <Menu.Item key="1">
+              <Menu.Item key="2">
                 <Link to="/cariekle">Cari Ekle</Link>
               </Menu.Item>
               <Menu.Item key="14">
@@ -75,7 +82,8 @@ const LayoutUI = props => {
               title={
                 <span>
                   <Icon type="laptop" />
-                  subnav 2
+                  <span>subnav 2
+                   </span>
                 </span>
               }
             >
@@ -89,7 +97,8 @@ const LayoutUI = props => {
               title={
                 <span>
                   <Icon type="notification" />
-                  subnav 3
+                  <span>subnav 3
+                  </span>
                 </span>
               }
             >
