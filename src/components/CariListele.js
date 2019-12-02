@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Table } from "antd";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import * as actions from "../store/actions/cariler";
 
 const CariListele = props => {
@@ -15,7 +16,9 @@ const CariListele = props => {
     {
       title: "İsim",
       dataIndex: "isim",
-      render: text => <a>{text}</a>
+      render: (text, record) => (
+        <Link to={`/cariliste/${record.id}`}>{text}</Link>
+      )
     },
     {
       title: "E-mail",
@@ -75,7 +78,7 @@ const CariListele = props => {
       columns={columns}
       dataSource={data}
       loading={props.cariler.loading}
-      rowKey={"uid"}
+      rowKey="id"
     />
   );
 };
