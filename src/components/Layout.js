@@ -20,6 +20,7 @@ const LayoutUI = props => {
   return (
     <Layout>
       <Header className="header">
+        <div className="logo" />
         <Menu
           theme="dark"
           mode="horizontal"
@@ -38,8 +39,37 @@ const LayoutUI = props => {
               <Link to="/login">Login</Link>
             </Menu.Item>
           )}
+          <Menu.Item key="12">
+            <Link to="/profil">Profil</Link>
+          </Menu.Item>
         </Menu>
       </Header>
+      {/*       <Header className="header">
+        <Menu
+          theme="dark"
+          mode="horizontal"
+          defaultSelectedKeys={["2"]}
+          style={{ lineHeight: "64px" }}
+        >
+          <Menu.Item key="1">
+            <Link to="/">Ana Sayfa</Link>
+          </Menu.Item>
+          {authenticated ? (
+            <>
+              <Menu.Item key="2" onClick={() => props.logout()}>
+                Logout
+              </Menu.Item>
+              <Menu.Item key="12">
+                <Link to="/profil">Profil</Link>
+              </Menu.Item>
+            </>
+          ) : (
+            <Menu.Item key="3">
+              <Link to="/login">Login</Link>
+            </Menu.Item>
+          )}
+        </Menu>
+      </Header> */}
       <Layout style={{ minHeight: "93vh" }}>
         <Sider
           collapsible
