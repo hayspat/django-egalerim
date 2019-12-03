@@ -1,7 +1,7 @@
 import React from "react";
 import "./StokEkle.css";
 
-import { Form, Row, Col, Input, Button, Icon, Upload } from "antd";
+import { Form, Row, Col, Input, Button, Icon, Upload, DatePicker } from "antd";
 
 class StokEkleForm extends React.Component {
   state = {
@@ -34,8 +34,12 @@ class StokEkleForm extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.form.validateFields((err, values) => {
+    this.props.form.validateFields((err, fieldsValue) => {
       if (!err) {
+        const values = {
+          ...fieldsValue,
+          alisTarihi: fieldsValue["alisTarihi"].format("YYYY-MM-DD")
+        };
         console.log("Received values of form: ", values);
       }
     });
@@ -148,7 +152,7 @@ class StokEkleForm extends React.Component {
             <Form.Item label={`Alış Tarihi`} labelCol={{ span: 3 }}>
               {getFieldDecorator("alisTarihi", {
                 rules: [{ required: false }]
-              })(<Input placeholder="Alış fiyatı" />)}
+              })(<DatePicker />)}
             </Form.Item>
           </Col>
 
