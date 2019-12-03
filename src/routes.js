@@ -3,6 +3,7 @@ import { Route } from "react-router-dom";
 import Hoc from "./hoc/hoc";
 import Home from "./components/Home";
 import CariEkle from "./components/CariEkle";
+import FaturaEkle from "./components/FaturaEkle";
 import StokEkle from "./components/StokEkle";
 import Profil from "./components/Profil";
 import CariListele from "./components/CariListele";
@@ -12,6 +13,7 @@ const BaseRouter = () => (
   <Hoc>
     <Route path="/stokekle" component={StokEkle} />
     <Route path="/cariekle" component={CariEkle} />
+    <Route path="/faturaekle" component={FaturaEkle} />
     <Route exact path="/cariliste" component={CariListele} />
     <Route exact path="/cariliste/:id" component={CariDetay} />
     <Route path="/profil/:id" component={Profil} />
