@@ -29,12 +29,18 @@ const LayoutUI = props => {
           <Menu.Item key="1">
             <Link to="/">Ana Sayfa</Link>
           </Menu.Item>
-          <Menu.Item key="2" onClick={() => props.logout()}>
-            Logout
+          {authenticated ? (
+            <Menu.Item key="2" onClick={() => props.logout()}>
+              Logout
             </Menu.Item>
+          ) : (
+            <Menu.Item key="3">
+              <Link to="/login">Login</Link>
+            </Menu.Item>
+          )}
         </Menu>
       </Header>
-      <Layout style={{ minHeight: '93vh' }}>
+      <Layout style={{ minHeight: "93vh" }}>
         <Sider
           collapsible
           collapsed={state}
@@ -48,9 +54,7 @@ const LayoutUI = props => {
               title={
                 <span>
                   <Icon type="shopping-cart" />
-                  <span>
-                    Satış İşlemleri
-                    </span>
+                  <span>Satış İşlemleri</span>
                 </span>
               }
             >
@@ -69,8 +73,7 @@ const LayoutUI = props => {
               title={
                 <span>
                   <Icon type="user" />
-                  <span>Cari İşlemleri
-                   </span>
+                  <span>Cari İşlemleri</span>
                 </span>
               }
             >
@@ -89,8 +92,7 @@ const LayoutUI = props => {
               title={
                 <span>
                   <Icon type="car" />
-                  <span>Araçlar
-                  </span>
+                  <span>Araçlar</span>
                 </span>
               }
             >
@@ -109,8 +111,7 @@ const LayoutUI = props => {
               title={
                 <span>
                   <Icon type="bank" />
-                  <span>Gelir ve Giderler
-                  </span>
+                  <span>Gelir ve Giderler</span>
                 </span>
               }
             >
