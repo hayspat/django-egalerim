@@ -8,6 +8,7 @@ urlpatterns = [
     path('rest-auth/registration/', include('rest_auth.registration.urls')),
     path('admin/', admin.site.urls),
     path('users/', include('users.urls')),
-    path('cariler/', include('api.urls')),
+    path('api/', include('api.urls')),
+
     re_path(r'^.*', TemplateView.as_view(template_name='index.html')),
 ]
