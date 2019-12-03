@@ -11,7 +11,7 @@ class Cariler(models.Model):
     adres = models.CharField(max_length=255, blank=True, null=True)
     posta_kodu = models.CharField(max_length=5, blank=True, null=True)
     added_by = models.ForeignKey(
-        'users.User', related_name='added_by', on_delete=models.CASCADE)
+        User, related_name='added_by', on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.isim

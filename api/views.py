@@ -8,21 +8,31 @@ class CarilerViewSet(viewsets.ModelViewSet):
     serializer_class = CarilerSerializer
 
     def get_queryset(self, *args, **kwargs):
-        print(self.request.user)
-        queryset_list = Cariler.objects.filter(added_by=self.request.user.id)
+        queryset_list = Cariler.objects.filter(added_by=self.request.user)
         return queryset_list
 
     def pre_save(self, obj):
-        obj.added_by = self.request.user.id
+        obj.added_by = self.request.user
+
+    def perform_create(self, serializer):
+        serializer.save(added_by=self.request.user)
+
+    def perform_update(self, serializer):
+        serializer.save(added_by=self.request.user)
 
 
 class StoklarViewSet(viewsets.ModelViewSet):
     serializer_class = StoklarSerializer
 
     def get_queryset(self, *args, **kwargs):
-        print(self.request.user)
-        queryset_list = Stoklar.objects.filter(added_by=self.request.user.id)
+        queryset_list = Stoklar.objects.filter(added_by=self.request.user)
         return queryset_list
 
     def pre_save(self, obj):
-        obj.added_by = self.request.user.id
+        obj.added_by = self.request.user
+
+    def perform_create(self, serializer):
+        serializer.save(added_by=self.request.user)
+
+    def perform_update(self, serializer):
+        serializer.save(added_by=self.request.user)

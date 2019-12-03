@@ -29,7 +29,9 @@ export const getCariList = token => {
       Authorization: `Token ${token}`
     };
     axios
-      .get("http://127.0.0.1:8000/cariler/")
+      .get("http://127.0.0.1:8000/api/cariler/", {
+        Authorization: token
+      })
       .then(res => {
         const cariler = res.data;
         dispatch(getCariListSuccess(cariler));
@@ -60,6 +62,50 @@ export const getCariDetayFail = error => {
   };
 };
 
+export const cariEkle = (token, cariObj) => {
+  return dispatch => {
+    dispatch(cariEkleStart());
+    axios.defaults.headers = {
+      "Content-Type": "application/json",
+      Authorization: `Token ${token}`
+    };
+    axios
+      .post("http://127.0.0.1:8000/api/cariler/", {
+        Authorization: token,
+        ...cariObj,
+        tel_no: cariObj.prefix + cariObj.tel_no
+      })
+      .then(res => {
+        console.log(res.data);
+        const cariler = res.data;
+        dispatch(cariEkleSuccess());
+      })
+      .catch(err => {
+        dispatch(cariEkleFail(err));
+      });
+  };
+};
+
+export const cariEkleStart = () => {
+  return {
+    type: actionTypes.CARI_EKLE_START
+  };
+};
+
+export const cariEkleSuccess = cari => {
+  return {
+    type: actionTypes.CARI_EKLE_SUCCESS,
+    cari
+  };
+};
+
+export const cariEkleFail = error => {
+  return {
+    type: actionTypes.CARI_EKLE_FAIL,
+    error: error
+  };
+};
+
 export const getCariDetay = (token, id) => {
   return dispatch => {
     dispatch(getCariDetayStart());
@@ -68,7 +114,7 @@ export const getCariDetay = (token, id) => {
       Authorization: `Token ${token}`
     };
     axios
-      .get(`http://127.0.0.1:8000/cariler/${id}/`)
+      .get(`http://127.0.0.1:8000/api/cariler/${id}/`)
       .then(res => {
         const cari = res.data;
         dispatch(getCariDetaySuccess(cari));

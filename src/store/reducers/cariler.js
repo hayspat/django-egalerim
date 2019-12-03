@@ -52,6 +52,27 @@ const getCariDetayFail = (state, action) => {
   });
 };
 
+const cariEkleStart = (state, action) => {
+  return updateObject(state, {
+    error: null,
+    loading: true
+  });
+};
+
+const cariEkleSuccess = (state, action) => {
+  return updateObject(state, {
+    error: null,
+    loading: false
+  });
+};
+
+const cariEkleFail = (state, action) => {
+  return updateObject(state, {
+    error: action.error,
+    loading: false
+  });
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.GET_CARI_LIST_START:
@@ -66,6 +87,12 @@ const reducer = (state = initialState, action) => {
       return getCariDetaySuccess(state, action);
     case actionTypes.GET_CARI_DETAY_FAIL:
       return getCariDetayFail(state, action);
+    case actionTypes.CARI_EKLE_START:
+      return cariEkleStart(state, action);
+    case actionTypes.CARI_EKLE_SUCCESS:
+      return cariEkleSuccess(state, action);
+    case actionTypes.CARI_EKLE_FAIL:
+      return cariEkleFail(state, action);
     default:
       return state;
   }
