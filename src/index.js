@@ -8,12 +8,14 @@ import thunk from "redux-thunk";
 import "antd/dist/antd.css";
 import authReducer from "./store/reducers/auth";
 import carilerReducer from "./store/reducers/cariler";
+import stoklarReducer from "./store/reducers/stoklar";
 
 const composeEnhances = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  cariler: carilerReducer
+  cariler: carilerReducer,
+  stoklar: stoklarReducer
 });
 
 const store = createStore(rootReducer, composeEnhances(applyMiddleware(thunk)));

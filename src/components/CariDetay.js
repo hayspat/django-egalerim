@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Descriptions } from "antd";
 import * as actions from "../store/actions/cariler";
-import { connect, useDispatch, useSelector } from "react-redux";
+import { connect } from "react-redux";
 
 const CariDetay = props => {
   useEffect(() => {

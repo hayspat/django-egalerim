@@ -31,10 +31,29 @@ class Stoklar(models.Model):
     kdv = models.CharField(max_length=5, blank=True, null=True)
     toplam = models.CharField(max_length=100, blank=True, null=True)
     aciklama = models.TextField(blank=True, null=True)
-    arac_resimleri = models.TextField(max_length=5, blank=True, null=True)
-    ruhsat_resimleri = models.TextField(max_length=5, blank=True, null=True)
     added_by = models.ForeignKey(
-        'users.User', related_name='stok_added_by', on_delete=models.CASCADE)
+        User, related_name='stoklar_added_by', on_delete=models.CASCADE, null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        super(Stoklar, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.plaka
+
+
+class AracResimleri(models.Model):
+    stoklar = models.ForeignKey(
+        Stoklar, related_name="aracresimleri", on_delete=models.CASCADE, null=True, blank=True)
+    image = models.ImageField(upload_to='aracresimleri')
+
+    def __str__(self):
+        return str(self.image)
+
+
+class RuhsatResimleri(models.Model):
+    stoklar = models.ForeignKey(
+        Stoklar, related_name="ruhsatresimleri", on_delete=models.CASCADE, null=True, blank=True)
+    image = models.ImageField(upload_to='ruhsatresimleri')
+
+    def __str__(self):
+        return str(self.image)

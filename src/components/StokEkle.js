@@ -1,22 +1,59 @@
 import React from "react";
 import "./StokEkle.css";
-
+import axios from "axios";
 import { Form, Row, Col, Input, Button, Icon, Upload, DatePicker } from "antd";
-
+import { connect } from "react-redux";
+import { stokEkle } from "../store/actions/stoklar";
 class StokEkleForm extends React.Component {
   state = {
     expand: false
   };
 
-  // To generate mock Form.Item
+  customRequest = options => {
+    const data = new FormData();
+    data.append("image", options.file);
+    const config = {
+      headers: {
+        Authorization: `Token ${this.props.token}`,
+        "Content-Type":
+          "application/x-www-form-urlencoded,multipart/form-data; boundary=--------------------------002996157090454745565512"
+      }
+    };
+    axios
+      .post("http://127.0.0.1:8000/api/aracresimleri/", data, config)
+      .then(res => {
+        options.onSuccess(res.data, options.file);
+      })
+      .catch(err => {
+        options.onError(err);
+      });
+  };
+
+  customRequest2 = options => {
+    const data = new FormData();
+    data.append("image", options.file);
+    const config = {
+      headers: {
+        Authorization: `Token ${this.props.token}`,
+        "Content-Type":
+          "application/x-www-form-urlencoded,multipart/form-data; boundary=--------------------------002996157090454745565512"
+      }
+    };
+    axios
+      .post("http://127.0.0.1:8000/api/ruhsatresimleri/", data, config)
+      .then(res => {
+        options.onSuccess(res.data, options.file);
+      })
+      .catch(err => {
+        options.onError(err);
+      });
+  };
 
   handlePlaka = (rule, value, callback) => {
     let regex, v;
     let val = value;
     v = val.replace(/\s+/g, "").toUpperCase();
-    console.log(v);
     regex = /([0-9]{2}|[01]{2})([a-z|A-Z]{2,})([0-9]{2,})/;
-    console.log(v.match(regex));
     if (v.match(regex)) {
       return callback();
     } else {
@@ -36,11 +73,16 @@ class StokEkleForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, fieldsValue) => {
       if (!err) {
+        let tarih;
+        fieldsValue["alis_tarihi"]
+          ? (tarih = fieldsValue["alis_tarihi"].format("YYYY-MM-DD"))
+          : (tarih = undefined);
         const values = {
           ...fieldsValue,
-          alisTarihi: fieldsValue["alisTarihi"].format("YYYY-MM-DD")
+          alis_tarihi: tarih
         };
         console.log("Received values of form: ", values);
+        this.props.stokEkle(this.props.token, values);
       }
     });
   };
@@ -82,7 +124,7 @@ class StokEkleForm extends React.Component {
 
           <Col span={11} offset={1} key={"motor"}>
             <Form.Item label={`Motor No`} labelCol={{ span: 3 }}>
-              {getFieldDecorator("motorNo", {
+              {getFieldDecorator("motor_no", {
                 rules: [{ required: false }]
               })(<Input placeholder="Aracın motor numarasını girin" />)}
             </Form.Item>
@@ -98,7 +140,7 @@ class StokEkleForm extends React.Component {
 
           <Col span={11} offset={1} key={"sase"}>
             <Form.Item label={`Şase no`} labelCol={{ span: 3 }}>
-              {getFieldDecorator("saseNo", {
+              {getFieldDecorator("sase_no", {
                 rules: [{ required: false }]
               })(<Input placeholder="Araç şase no" />)}
             </Form.Item>
@@ -114,7 +156,7 @@ class StokEkleForm extends React.Component {
 
           <Col span={11} offset={1} key={"alis"}>
             <Form.Item label={`Alış Fiyatı`} labelCol={{ span: 3 }}>
-              {getFieldDecorator("alisFiyati", {
+              {getFieldDecorator("alis_fiyati", {
                 rules: [{ required: false }]
               })(<Input placeholder="Alış fiyatı" />)}
             </Form.Item>
@@ -135,7 +177,7 @@ class StokEkleForm extends React.Component {
           </Col>
           <Col span={11} key={"ruhsat"}>
             <Form.Item label={`Ruhsat No`} labelCol={{ span: 3 }}>
-              {getFieldDecorator("ruhsat", {
+              {getFieldDecorator("ruhsat_no", {
                 rules: [{ required: false }]
               })(<Input placeholder="Araç ruhsat no" />)}
             </Form.Item>
@@ -150,7 +192,7 @@ class StokEkleForm extends React.Component {
           </Col>
           <Col span={11} key={"tarih"}>
             <Form.Item label={`Alış Tarihi`} labelCol={{ span: 3 }}>
-              {getFieldDecorator("alisTarihi", {
+              {getFieldDecorator("alis_tarihi", {
                 rules: [{ required: false }]
               })(<DatePicker />)}
             </Form.Item>
@@ -181,8 +223,9 @@ class StokEkleForm extends React.Component {
               })(
                 <Upload.Dragger
                   multiple
+                  customRequest={this.customRequest}
                   name="files"
-                  action="/upload.do"
+                  action="http://127.0.0.1:8000/api/aracresimleri/"
                   listType="picture"
                 >
                   <p className="ant-upload-drag-icon">
@@ -203,16 +246,16 @@ class StokEkleForm extends React.Component {
               })(
                 <Upload.Dragger
                   multiple
+                  customRequest={this.customRequest2}
                   name="files"
-                  action="/upload.do"
+                  action="http://127.0.0.1:8000/api/ruhsatresimleri/"
                   listType="picture"
                 >
                   <p className="ant-upload-drag-icon">
                     <Icon type="picture" />
                   </p>
                   <p className="ant-upload-text">
-                    Ruhsat resimleri eklemek için buraya tıklayın veya
-                    sürükleyin
+                    Araç resimleri eklemek için buraya tıklayın veya sürükleyin
                   </p>
                 </Upload.Dragger>
               )}
@@ -226,4 +269,19 @@ class StokEkleForm extends React.Component {
 
 const WrappedStokEkleForm = Form.create({ name: "stok_ekle" })(StokEkleForm);
 
-export default WrappedStokEkleForm;
+const mapStateToProps = state => {
+  return {
+    token: state.auth.token
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    stokEkle: (token, stokObj) => dispatch(stokEkle(token, stokObj))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(WrappedStokEkleForm);

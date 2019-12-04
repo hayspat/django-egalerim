@@ -130,7 +130,7 @@ const LayoutUI = props => {
                 <Link to="/stokekle">Yeni Araç</Link>
               </Menu.Item>
               <Menu.Item key="8">
-                <Link to="/stokekle">Araç Listesi</Link>
+                <Link to="/stokliste">Araç Listesi</Link>
               </Menu.Item>
               <Menu.Item key="9">
                 <Link to="/stokekle">Araç Raporları</Link>

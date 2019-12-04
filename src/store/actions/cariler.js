@@ -77,7 +77,6 @@ export const cariEkle = (token, cariObj) => {
       })
       .then(res => {
         console.log(res.data);
-        const cariler = res.data;
         dispatch(cariEkleSuccess());
       })
       .catch(err => {

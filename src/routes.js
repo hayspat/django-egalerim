@@ -9,6 +9,8 @@ import Profil from "./components/Profil";
 import CariListele from "./components/CariListele";
 import CariDetay from "./components/CariDetay";
 import ProfilDetay from "./components/ProfilDetay";
+import StokListele from "./components/StokListele";
+import StokDetay from "./components/StokDetay";
 
 const BaseRouter = () => (
   <Hoc>
@@ -16,6 +18,8 @@ const BaseRouter = () => (
     <Route path="/cariekle" component={CariEkle} />
     <Route path="/faturaekle" component={FaturaEkle} />
     <Route path="/profil" component={ProfilDetay} />
+    <Route exact path="/stokliste" component={StokListele} />
+    <Route exact path="/stokliste/:id" component={StokDetay} />
     <Route exact path="/cariliste" component={CariListele} />
     <Route exact path="/cariliste/:id" component={CariDetay} />
     <Route path="/profil/:id" component={Profil} />
