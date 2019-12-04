@@ -29,8 +29,7 @@ class StoklarViewSet(viewsets.ModelViewSet):
     serializer_class = StoklarSerializer
 
     def get_queryset(self, *args, **kwargs):
-        #queryset_list = Stoklar.objects.filter(added_by=self.request.user)
-        queryset_list = Stoklar.objects.all()
+        queryset_list = Stoklar.objects.filter(added_by=self.request.user)
         return queryset_list
 
     def pre_save(self, obj):
