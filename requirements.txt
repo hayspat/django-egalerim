@@ -18,7 +18,7 @@ oauthlib==3.1.0
 pep8==1.7.1
 pillow==6.2.1
 pycodestyle==2.5.0
-Pygments==2.5.2
+Pygments==2.7.4
 pylint==2.4.4
 python-stdnum==1.12
 python3-openid==3.1.0
